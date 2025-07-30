@@ -5,7 +5,8 @@ function Register() {
     name: '',
     address: '',
     email: '',
-    password: ''
+    password: '',
+    dob:''
   });
   const [msg, setMsg] = useState('');
 
@@ -13,11 +14,32 @@ function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // TODO: Replace with a real API call later!
-    setMsg(`Registering: ${form.name} | ${form.email} | ${form.address}`);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:8081/api/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(form)
+    });
+
+    const data = await response.json();
+    console.log("Server Response:", data);
+
+    if (response.ok) {
+      alert("Registration successful!");
+    } else {
+      alert(data.message || "Registration failed.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong.");
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -54,6 +76,12 @@ function Register() {
         onChange={handleChange}
         required
       />
+
+      <input type="date"
+      name='dob'
+      value={form.dob}
+      onChange={handleChange}
+      required />
       <button type="submit">Register</button>
       <p>{msg}</p>
     </form>

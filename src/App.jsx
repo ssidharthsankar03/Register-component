@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Register from "./components/RegisterForm.jsx";
 import Login from "./components/LoginForm.jsx";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {HashRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 function App() {
