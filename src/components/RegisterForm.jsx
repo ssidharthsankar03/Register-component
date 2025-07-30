@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Register() {
   const [form, setForm] = useState({
     name: '',
     address: '',
     email: '',
-    password: '',
-    dob:''
+    password: ''
   });
+  const [dob, setDob] = useState(null);
   const [msg, setMsg] = useState('');
 
   const handleChange = e => {
@@ -77,11 +79,16 @@ function Register() {
         required
       />
 
-      <input type="date"
-      name='dob'
-      value={form.dob}
-      onChange={handleChange}
-      required />
+       <DatePicker
+      selected={dob}
+      onChange={(date) => setDob(date)}
+      dateFormat="dd-MM-yyyy"
+      placeholderText="dd-mm-yyyy"
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
+      className="custom-input" // Optional for styling
+    />
       <button type="submit">Register</button>
       <p>{msg}</p>
     </form>
